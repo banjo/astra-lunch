@@ -45,19 +45,21 @@ export const fetchKockOchRock = async () => {
 
         const today = `${header} ${new Date().getFullYear()}`;
 
-        const todaySwedish = new Date(today).toLocaleString("sv-SE", {
-            weekday: "long",
-        });
+        const todayEnglish = new Date(today)
+            .toLocaleString("en-US", {
+                weekday: "long",
+            })
+            .toLowerCase();
 
         const hasClosedText = foodNames.some(food => food.toLowerCase().includes("stängt"));
         const tooFewEntries = foodNames.length <= 1;
 
         if (hasClosedText || tooFewEntries) {
-            allFood[todaySwedish] = null;
+            allFood[todayEnglish] = null;
             continue;
         }
 
-        allFood[todaySwedish] = [...foodNames, ...mosluckan];
+        allFood[todayEnglish] = [...foodNames, ...mosluckan];
     }
 
     return allFood;

@@ -5,7 +5,7 @@ import { JSDOM } from "jsdom";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import { isLocalDevelopment } from "../utils.js";
+import { isLocalDevelopment } from "../../utils.js";
 import { parser } from "./parser.js";
 const fetchWithCookies = fetchCookie(fetch);
 

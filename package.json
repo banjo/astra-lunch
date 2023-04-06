@@ -10,12 +10,12 @@
         "format": "prettier --write ."
     },
     "devDependencies": {
-        "@banjoanton/eslint-config": "^0.1.1",
+        "@banjoanton/eslint-config": "^0.1.6",
         "@banjoanton/prettier-config": "^0.0.8",
-        "eslint": "^8.35.0",
-        "hoks": "^0.1.10",
-        "pnpm": "^7.28.0",
-        "prettier": "^2.8.4"
+        "eslint": "^8.37.0",
+        "hoks": "^0.1.12",
+        "pnpm": "^7.31.0",
+        "prettier": "^2.8.7"
     },
     "prettier": "@banjoanton/prettier-config"
 }

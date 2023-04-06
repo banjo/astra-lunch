@@ -1,6 +1,8 @@
+import { LanguageUtil } from "../../utils/LanguageUtil";
+
 const soupOfTheWeekText = "Veckans soppa";
 const days = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag"];
-const mainPrefixes = ["Santa Maria:", "Husman:", "Santa maria:", "husman:"];
+const mainPrefixes = ["Santa Maria:", "Husman:", "Santa maria:", "husman:", "santa maria:"];
 const vegPrefix = "Veg:";
 const closed = ["Stängt"];
 
@@ -19,8 +21,9 @@ export const parser = (text: string) => {
             continue;
         }
 
-        const day = days.find(d => line.includes(d));
+        const day = days.find(d => line.toLowerCase().includes(d.toLowerCase()));
         if (!day) continue;
+        const englishDay = LanguageUtil.translateDayToEnglish(day);
 
         const followingLines = [lines[index + 1], lines[index + 2], lines[index + 3]];
 
@@ -30,7 +33,7 @@ export const parser = (text: string) => {
         if (followingLines.some(l => closed.some(c => l.includes(c)))) {
             allFood = {
                 ...allFood,
-                [day.toLowerCase()]: null,
+                [englishDay]: null,
             };
             continue;
         }
@@ -53,7 +56,7 @@ export const parser = (text: string) => {
 
         allFood = {
             ...allFood,
-            [day.toLowerCase()]: dailyFood,
+            [englishDay]: dailyFood,
         };
     }
 
