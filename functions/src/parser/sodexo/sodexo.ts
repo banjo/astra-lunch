@@ -2,10 +2,15 @@ import { escapeHtml } from "@banjoanton/utils";
 import vision from "@google-cloud/vision";
 import fetchCookie from "fetch-cookie";
 import { JSDOM } from "jsdom";
+import * as fs from "node:fs";
+import * as os from "node:os";
+import * as path from "node:path";
+import { isLocalDevelopment } from "../utils.js";
 import { parser } from "./parser.js";
 const fetchWithCookies = fetchCookie(fetch);
 
 const URL = "https://workz.sodexo.se/info/restaurang-goteborg/";
+const KEY_FILE = "key.json";
 
 export const fetchSodexo = async () => {
     const email = process.env.SODEXO_EMAIL ?? null;
@@ -61,8 +66,23 @@ export const fetchSodexo = async () => {
 
     const buffer = Buffer.from(await downloadResponse.arrayBuffer());
 
+    const keyValue = process.env.GOOGLE_VISION_KEY ?? null;
+
+    if (!keyValue) {
+        throw new Error("Missing google vision key");
+    }
+
+    let keyPath: string;
+    if (isLocalDevelopment()) {
+        keyPath = KEY_FILE;
+    } else {
+        const temporaryFilePath = path.join(os.tmpdir(), KEY_FILE);
+        fs.writeFileSync(temporaryFilePath, keyValue);
+        keyPath = temporaryFilePath;
+    }
+
     const client = new vision.ImageAnnotatorClient({
-        keyFile: "key.json",
+        keyFile: keyPath,
     });
 
     const [result] = await client.textDetection(buffer);

@@ -76,3 +76,4 @@ test.cjs
 lib
 dist
 functions/key.json
+functions/old-key.json
