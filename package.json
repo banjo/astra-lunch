@@ -1,0 +1,21 @@
+{
+    "name": "astra-lunch",
+    "description": "",
+    "repository": "",
+    "version": "0.0.0",
+    "license": "MIT",
+    "private": "true",
+    "scripts": {
+        "lint": "eslint --ext .js,.ts,.json . --fix",
+        "format": "prettier --write ."
+    },
+    "devDependencies": {
+        "@banjoanton/eslint-config": "^0.1.1",
+        "@banjoanton/prettier-config": "^0.0.8",
+        "eslint": "^8.35.0",
+        "hoks": "^0.1.10",
+        "pnpm": "^7.28.0",
+        "prettier": "^2.8.4"
+    },
+    "prettier": "@banjoanton/prettier-config"
+}

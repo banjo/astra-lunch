@@ -1,0 +1,6 @@
+{
+    "extends": "@banjoanton/eslint-config",
+    "rules": {
+        "unicorn/prefer-module": "off"
+    }
+}
