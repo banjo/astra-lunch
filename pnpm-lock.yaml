@@ -20,6 +20,7 @@ importers:
 
   functions:
     specifiers:
+      '@banjoanton/prettier-config': ^0.0.8
       '@banjoanton/utils': ^0.1.42
       '@google-cloud/vision': ^3.1.2
       '@types/jsdom': ^21.1.1
@@ -43,6 +44,7 @@ importers:
       firebase-functions: 4.2.1_firebase-admin@11.5.0
       jsdom: 21.1.1
     devDependencies:
+      '@banjoanton/prettier-config': 0.0.8
       '@banjoanton/utils': 0.1.42
       '@types/jsdom': 21.1.1
       firebase-functions-test: 3.0.0_lcnadm2rlyij3y4jse7uecqgiu
@@ -128,6 +130,12 @@ packages:
       - eslint-import-resolver-webpack
       - prettier
       - supports-color
+    dev: true
+
+  /@banjoanton/prettier-config/0.0.8:
+    resolution: {integrity: sha512-cKPKUsF79hhvgtZh8pEldM3pkIltaP/CRcv60fFvuAfEeWLQV2f5sIFLYY6Z5FIjpMp3T6SuGZ1yOGqMsRtZjQ==}
+    peerDependencies:
+      prettier: ^2.2.1
     dev: true
 
   /@banjoanton/prettier-config/0.0.8_prettier@2.8.7:

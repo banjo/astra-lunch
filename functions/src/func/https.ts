@@ -2,9 +2,9 @@ import * as functions from "firebase-functions";
 import { weeklyFood } from "../models/WeeklyFood";
 import { fetchKockOchRock, fetchSodexo, fetchTaste } from "../parser";
 import { DatabaseService } from "../services/DatabaseService";
-import { handleResult, type Result } from "../utils";
+import { PromiseUtil, Result } from "../utils/PromiseUtil";
 
-const handle = async (result: Result): Promise<void> => {
+const mapAndSave = async (result: Result): Promise<void> => {
     const mapped = result.success ? weeklyFood.from(result.value, result.name) : weeklyFood.fail(result.name);
     await DatabaseService.addWeeklyFoodToDatabase(mapped);
 };
@@ -15,9 +15,9 @@ export const parseFood = functions
         const promises = [fetchTaste(), fetchKockOchRock(), fetchSodexo()];
         const [taste, kockOchRock, sodexo] = await Promise.allSettled(promises);
 
-        handle(handleResult(taste, "taste"));
-        handle(handleResult(kockOchRock, "kockochrock"));
-        handle(handleResult(sodexo, "sodexo"));
+        await mapAndSave(PromiseUtil.handleResult(taste, "taste"));
+        await mapAndSave(PromiseUtil.handleResult(kockOchRock, "kockochrock"));
+        await mapAndSave(PromiseUtil.handleResult(sodexo, "sodexo"));
 
         response.send({ sodexo, taste, kockOchRock });
     });

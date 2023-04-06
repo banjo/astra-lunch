@@ -1,4 +1,3 @@
-import { weekdays } from "../../utils";
 import { LanguageUtil } from "../../utils/LanguageUtil";
 
 const dec = /(\d{1,2}\.\d{1,2})/g;
@@ -54,7 +53,7 @@ export const parser = (text: string) => {
     }
 
     const final = {};
-    for (const [index, day] of weekdays.entries()) {
+    for (const [index, day] of LanguageUtil.swedishWeekdays.entries()) {
         const englishDay = LanguageUtil.translateDayToEnglish(day);
         final[englishDay] = allFood[index];
     }
