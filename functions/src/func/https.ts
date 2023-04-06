@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import { fetchKockOchRock, fetchSodexo, fetchTaste } from "../parser";
 
-export const helloWorld = functions
+export const parseFood = functions
     .region("europe-west1")
     .https.onRequest(async (request: functions.Request, response: functions.Response) => {
         functions.logger.info("Hello logs!", { structuredData: true });
