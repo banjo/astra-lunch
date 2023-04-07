@@ -59,7 +59,7 @@ const fail = (name: Restaurant): WeeklyFood => {
     };
 };
 
-export const weeklyFood = {
+export const WeeklyFood = {
     from,
     fail,
 };
