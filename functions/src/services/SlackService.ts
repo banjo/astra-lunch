@@ -16,7 +16,7 @@ const formatForSlack = (foodForToday: DailyFood): string => {
         text += `*${Restaurant.toString(dailyMenu.name)}*\n`;
 
         if (!dailyMenu.food) {
-            text += "Stängt 😟\n\n";
+            text += "_Stängt_ 😟\n\n";
             continue;
         }
 
@@ -24,7 +24,7 @@ const formatForSlack = (foodForToday: DailyFood): string => {
             text += `- ${dish}\n`;
         }
 
-        text += "\n\n";
+        text += "\n";
     }
 
     return text;
@@ -49,7 +49,8 @@ const sendDailyLunch = async () => {
     const currentWeekNumber = DateUtil.getWeekNumber(new Date());
     const weeklyFoods = await DatabaseService.getWeeklyDatesByWeekNumber(currentWeekNumber);
 
-    const weekdayEnglish = DateUtil.getWeekdayEnglish();
+    // const weekdayEnglish = DateUtil.getWeekdayEnglish();
+    const weekdayEnglish = "thursday";
 
     const foodForToday: DailyFood = weeklyFoods.map(weekly => {
         const food: string[] | null = weekly.food[weekdayEnglish];
