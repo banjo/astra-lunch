@@ -1,5 +1,6 @@
 import { isDefined } from "@banjoanton/utils";
 import { JSDOM } from "jsdom";
+import { DateUtil } from "../../utils/DateUtil";
 
 const url = "https://kockochrock.se/veckans-lunch"; // todo: remove 1
 
@@ -45,11 +46,7 @@ export const fetchKockOchRock = async () => {
 
         const today = `${header} ${new Date().getFullYear()}`;
 
-        const todayEnglish = new Date(today)
-            .toLocaleString("en-US", {
-                weekday: "long",
-            })
-            .toLowerCase();
+        const todayEnglish = DateUtil.getWeekdayAsString(new Date(today), "en-US");
 
         const hasClosedText = foodNames.some(food => food.toLowerCase().includes("stängt"));
         const tooFewEntries = foodNames.length <= 1;

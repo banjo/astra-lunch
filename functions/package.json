@@ -23,7 +23,8 @@
         "fetch-cookie": "^2.1.0",
         "firebase-admin": "^11.5.0",
         "firebase-functions": "^4.2.1",
-        "jsdom": "^21.1.1"
+        "jsdom": "^21.1.1",
+        "slack-notify": "^2.0.6"
     },
     "devDependencies": {
         "@banjoanton/prettier-config": "^0.0.8",

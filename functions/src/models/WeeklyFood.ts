@@ -1,14 +1,9 @@
-import currentWeekNumber from "current-week-number";
 import { generateId } from "../utils";
 import { DateUtil } from "../utils/DateUtil";
+import { type Restaurant } from "./Restaurant";
+import { EnglishWeekday } from "./Weekday";
 
-type Food = {
-    monday: string[] | null;
-    tuesday: string[] | null;
-    wednesday: string[] | null;
-    thursday: string[] | null;
-    friday: string[] | null;
-};
+type Food = Record<EnglishWeekday, string[] | null>;
 
 export type PartialFood = Partial<Food>;
 
@@ -16,21 +11,12 @@ export type WeeklyFood = {
     food: Food;
     dateMonday: string;
     weekNumber: number;
-    name: string;
+    name: Restaurant;
     successfullyFetched: boolean;
     id: string;
 };
 
-const getMondayDate = () => {
-    const dateMonday = new Date();
-    const day = dateMonday.getDay();
-    const diff = dateMonday.getDate() - day + (day === 0 ? -6 : 1);
-    dateMonday.setDate(diff);
-
-    return dateMonday;
-};
-
-const from = (fetched: PartialFood, name: string): WeeklyFood => {
+const from = (fetched: PartialFood, name: Restaurant): WeeklyFood => {
     const food: Food = {
         monday: fetched.monday ?? null,
         tuesday: fetched.tuesday ?? null,
@@ -39,8 +25,8 @@ const from = (fetched: PartialFood, name: string): WeeklyFood => {
         friday: fetched.friday ?? null,
     };
 
-    const dateMonday = getMondayDate();
-    const weekNumber = currentWeekNumber(dateMonday);
+    const dateMonday = DateUtil.getPreviousMondayDate();
+    const weekNumber = DateUtil.getWeekNumber(dateMonday);
     const haveFailed = Object.values(food).every(v => v === null);
 
     return {
@@ -53,10 +39,9 @@ const from = (fetched: PartialFood, name: string): WeeklyFood => {
     };
 };
 
-const fail = (name: string): WeeklyFood => {
-    const dateMonday = getMondayDate();
-
-    const weekNumber = currentWeekNumber(dateMonday);
+const fail = (name: Restaurant): WeeklyFood => {
+    const dateMonday = DateUtil.getPreviousMondayDate();
+    const weekNumber = DateUtil.getWeekNumber(dateMonday);
 
     return {
         food: {

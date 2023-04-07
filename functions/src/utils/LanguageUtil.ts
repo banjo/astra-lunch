@@ -1,11 +1,12 @@
-const swedishWeekdays = ["måndag", "tisdag", "onsdag", "torsdag", "fredag"];
-const englishWeekdays = ["monday", "tuesday", "wednesday", "thursday", "friday"];
+import { englishWeekdays, swedishWeekdays, Weekday } from "../models/Weekday";
 
 const translateDayToEnglish = (day: string): string => {
-    const index = swedishWeekdays.indexOf(day.toLowerCase());
+    const dayAsLowerCase = day.toLowerCase();
+    const weekdayInSwedish = Weekday.fromSwedish(dayAsLowerCase);
+    const index = swedishWeekdays.indexOf(weekdayInSwedish);
 
     if (index === -1) {
-        throw new Error("Invalid Swedish weekday");
+        throw new Error(`Invalid Swedish weekday: ${day}`);
     }
 
     return englishWeekdays[index].toLowerCase();
