@@ -3,6 +3,7 @@ import SlackNotify from "slack-notify";
 import { Restaurant } from "../models/Restaurant";
 import { DateUtil } from "../utils/DateUtil";
 import { DatabaseService } from "./DatabaseService";
+import { EmojiService } from "./EmojiService";
 
 type DailyFood = {
     name: Restaurant;
@@ -11,17 +12,18 @@ type DailyFood = {
 
 const formatForSlack = (foodForToday: DailyFood): string => {
     const weekdaySwedish = DateUtil.getWeekdaySwedish();
-    let text = `*Dagens lunch för ${capitalize(weekdaySwedish)}*\n\n`;
+    let text = `--- *Dagens lunch ${capitalize(weekdaySwedish)}* ---\n\n`;
     for (const dailyMenu of foodForToday) {
         text += `*${Restaurant.toString(dailyMenu.name)}*\n`;
 
         if (!dailyMenu.food) {
-            text += "_Stängt_ 😟\n\n";
+            text += "😟\t_Stängt_\n\n";
             continue;
         }
 
         for (const dish of dailyMenu.food) {
-            text += `- ${dish}\n`;
+            const emojis = EmojiService.getLunchEmojis(dish, 1);
+            text += `${emojis}\t${dish}\n`;
         }
 
         text += "\n";
@@ -49,8 +51,7 @@ const sendDailyLunch = async () => {
     const currentWeekNumber = DateUtil.getWeekNumber(new Date());
     const weeklyFoods = await DatabaseService.getWeeklyDatesByWeekNumber(currentWeekNumber);
 
-    // const weekdayEnglish = DateUtil.getWeekdayEnglish();
-    const weekdayEnglish = "thursday";
+    const weekdayEnglish = DateUtil.getWeekdayEnglish();
 
     const foodForToday: DailyFood = weeklyFoods.map(weekly => {
         const food: string[] | null = weekly.food[weekdayEnglish];
