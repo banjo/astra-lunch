@@ -38,17 +38,18 @@ export const sendToSlack = functions
         const currentWeekNumber = DateUtil.getWeekNumber(new Date());
         const weeklyFoods = await DatabaseService.getWeeklyDatesByWeekNumber(currentWeekNumber);
 
-        const weekday = DateUtil.getWeekdaySwedish();
+        const weekdaySwedish = DateUtil.getWeekdaySwedish();
+        const weekdayEnglish = DateUtil.getWeekdayEnglish();
 
         const foodForToday = weeklyFoods.map(weekly => {
-            const food: string[] | null = weekly.food[weekday];
+            const food: string[] | null = weekly.food[weekdayEnglish];
             return {
                 name: weekly.name,
                 food,
             };
         });
 
-        let text = `*Dagens lunch för ${capitalize(weekday)}*\n\n`;
+        let text = `*Dagens lunch för ${capitalize(weekdaySwedish)}*\n\n`;
         for (const dailyMenu of foodForToday) {
             text += `*${Restaurant.toString(dailyMenu.name)}*\n`;
 
