@@ -1,21 +1,13 @@
+import { formatDate, getFirstDayOfWeek } from "@banjoanton/utils";
 import currentWeekNumber from "current-week-number";
 import { EnglishWeekday, SwedishWeekday, Weekday } from "../models/Weekday";
 
 const format = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-
-    return `${year}-${month}-${day}`;
+    return formatDate(date);
 };
 
 const getPreviousMondayDate = () => {
-    const dateMonday = new Date();
-    const day = dateMonday.getDay();
-    const diff = dateMonday.getDate() - day + (day === 0 ? -6 : 1);
-    dateMonday.setDate(diff);
-
-    return dateMonday;
+    return getFirstDayOfWeek(new Date());
 };
 
 const getWeekNumber = (date: Date): number => {

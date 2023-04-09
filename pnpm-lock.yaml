@@ -21,13 +21,13 @@ importers:
   functions:
     specifiers:
       '@banjoanton/prettier-config': ^0.0.8
-      '@banjoanton/utils': ^0.1.42
+      '@banjoanton/utils': ^0.1.43
       '@google-cloud/vision': ^3.1.2
       '@types/jsdom': ^21.1.1
       current-week-number: ^1.0.7
       dotenv: ^16.0.3
       fetch-cookie: ^2.1.0
-      firebase-admin: ^11.5.0
+      firebase-admin: ^11.6.0
       firebase-functions: ^4.2.1
       firebase-functions-test: ^3.0.0
       jsdom: ^21.1.1
@@ -35,25 +35,25 @@ importers:
       rimraf: ^4.4.1
       slack-notify: ^2.0.6
       tsup: ^6.7.0
-      typescript: ^5.0.3
+      typescript: ^5.0.4
     dependencies:
       '@google-cloud/vision': 3.1.2
       current-week-number: 1.0.7
       dotenv: 16.0.3
       fetch-cookie: 2.1.0
-      firebase-admin: 11.5.0
-      firebase-functions: 4.2.1_firebase-admin@11.5.0
+      firebase-admin: 11.6.0
+      firebase-functions: 4.2.1_firebase-admin@11.6.0
       jsdom: 21.1.1
       slack-notify: 2.0.6
     devDependencies:
       '@banjoanton/prettier-config': 0.0.8
-      '@banjoanton/utils': 0.1.42
+      '@banjoanton/utils': 0.1.43
       '@types/jsdom': 21.1.1
-      firebase-functions-test: 3.0.0_lcnadm2rlyij3y4jse7uecqgiu
+      firebase-functions-test: 3.0.0_y34tr7wrdqipvoepcurrpj6dei
       npm-run-all: 4.1.5
       rimraf: 4.4.1
-      tsup: 6.7.0_typescript@5.0.3
-      typescript: 5.0.3
+      tsup: 6.7.0_typescript@5.0.4
+      typescript: 5.0.4
 
 packages:
 
@@ -156,8 +156,8 @@ packages:
       prettier: 2.8.7
     dev: true
 
-  /@banjoanton/utils/0.1.42:
-    resolution: {integrity: sha512-tKO4nXc7/44Hpy0mDdBASNlLP9Me97Xes6bHWKghup5X4BKr+afq+o8zaOxLdKDEpxyZrJ5MnDR5kJ3LXWXLMA==}
+  /@banjoanton/utils/0.1.43:
+    resolution: {integrity: sha512-pNOV2Nw3seyWQ/TtDEdC2s8aOfVz+i2R6vAs4Po+HS/DaicVRQETlDf34ewAAonkY7U6G7z4dXzUjTDx+WDvfw==}
     dev: true
 
   /@esbuild/android-arm/0.17.15:
@@ -555,6 +555,40 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@jridgewell/gen-mapping/0.3.3:
+    resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      '@jridgewell/set-array': 1.1.2
+      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/trace-mapping': 0.3.18
+    dev: true
+
+  /@jridgewell/resolve-uri/3.1.0:
+    resolution: {integrity: sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==}
+    engines: {node: '>=6.0.0'}
+    dev: true
+
+  /@jridgewell/set-array/1.1.2:
+    resolution: {integrity: sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==}
+    engines: {node: '>=6.0.0'}
+    dev: true
+
+  /@jridgewell/sourcemap-codec/1.4.14:
+    resolution: {integrity: sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==}
+    dev: true
+
+  /@jridgewell/sourcemap-codec/1.4.15:
+    resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
+    dev: true
+
+  /@jridgewell/trace-mapping/0.3.18:
+    resolution: {integrity: sha512-w+niJYzMHdd7USdiH2U6869nqhD2nbfZXND5Yp93qIbEmnDNk7PD48o+YchRVpzMU7M6jVCbenTR7PA1FLQ9pA==}
+    dependencies:
+      '@jridgewell/resolve-uri': 3.1.0
+      '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
   /@jsdoc/salty/0.2.5:
@@ -2249,8 +2283,8 @@ packages:
       path-exists: 4.0.0
     dev: true
 
-  /firebase-admin/11.5.0:
-    resolution: {integrity: sha512-bBdlYtNvXx8yZGdCd00NrfZl1o1A0aXOw5h8q5PwC8RXikOLNXq8vYtSKW44dj8zIaafVP6jFdcUXZem/LMsHA==}
+  /firebase-admin/11.6.0:
+    resolution: {integrity: sha512-Kvjs+u/EHs+8B4pNOehbXkazEVMNmTQjkz+B5vUIvWWWR44GOiZj4lBf/hM5An4k3rFkBfO6G4s0kWi7QMOm3g==}
     engines: {node: '>=14'}
     dependencies:
       '@fastify/busboy': 1.2.1
@@ -2268,7 +2302,7 @@ packages:
       - encoding
       - supports-color
 
-  /firebase-functions-test/3.0.0_lcnadm2rlyij3y4jse7uecqgiu:
+  /firebase-functions-test/3.0.0_y34tr7wrdqipvoepcurrpj6dei:
     resolution: {integrity: sha512-Uva16mptDR2/YB3DKPUKLPymqVarc3W2cHEzNujfL4QhBk6rthThAaK1Eab5Zgk4p6MgUsw9Jl6KEWU27TxGYw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -2277,13 +2311,13 @@ packages:
       jest: '>=28.0.0'
     dependencies:
       '@types/lodash': 4.14.192
-      firebase-admin: 11.5.0
-      firebase-functions: 4.2.1_firebase-admin@11.5.0
+      firebase-admin: 11.6.0
+      firebase-functions: 4.2.1_firebase-admin@11.6.0
       lodash: 4.17.21
       ts-deepmerge: 2.0.7
     dev: true
 
-  /firebase-functions/4.2.1_firebase-admin@11.5.0:
+  /firebase-functions/4.2.1_firebase-admin@11.6.0:
     resolution: {integrity: sha512-+NjbI6TD3ivuoT7B3oC4iwRlt41QDTcYowo3TO88ZyMHmjCzlrbiuAjiPzz/zfwgi3+GCoP1tztHOQHhDGYE5w==}
     engines: {node: '>=14.10.0'}
     hasBin: true
@@ -2294,7 +2328,7 @@ packages:
       '@types/express': 4.17.3
       cors: 2.8.5
       express: 4.18.2
-      firebase-admin: 11.5.0
+      firebase-admin: 11.6.0
       node-fetch: 2.6.9
     transitivePeerDependencies:
       - encoding
@@ -3055,7 +3089,7 @@ packages:
       http-proxy-agent: 5.0.0
       https-proxy-agent: 5.0.1
       is-potential-custom-element-name: 1.0.1
-      nwsapi: 2.2.2
+      nwsapi: 2.2.3
       parse5: 7.1.2
       rrweb-cssom: 0.6.0
       saxes: 6.0.0
@@ -3517,7 +3551,7 @@ packages:
       minimatch: 3.1.2
       pidtree: 0.3.1
       read-pkg: 3.0.0
-      shell-quote: 1.8.0
+      shell-quote: 1.8.1
       string.prototype.padend: 3.1.4
     dev: true
 
@@ -3535,8 +3569,8 @@ packages:
       path-key: 4.0.0
     dev: true
 
-  /nwsapi/2.2.2:
-    resolution: {integrity: sha512-90yv+6538zuvUMnN+zCr8LuV6bPFdq50304114vJYJ8RDyK8D5O9Phpbd6SZWgI7PwzmmfN1upeOJlvybDSgCw==}
+  /nwsapi/2.2.3:
+    resolution: {integrity: sha512-jscxIO4/VKScHlbmFBdV1Z6LXnLO+ZR4VMtypudUdfwtKxUN3TQcNFIHLwKtrUbDyHN4/GycY9+oRGZ2XMXYPw==}
     dev: false
 
   /object-assign/4.1.1:
@@ -4228,8 +4262,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /shell-quote/1.8.0:
-    resolution: {integrity: sha512-QHsz8GgQIGKlRi24yFc6a6lN69Idnx634w49ay6+jA5yFh7a1UY+4Rp6HPx/L/1zcEDPEij8cIsiqR6bQsE5VQ==}
+  /shell-quote/1.8.1:
+    resolution: {integrity: sha512-6j1W9l1iAs/4xYBI1SYOVZyFcCis9b4KCLQ8fgAGG07QvzaRLVVRQvAy85yNmmZSjYjg4MWh4gNvlPujU/5LpA==}
     dev: true
 
   /side-channel/1.0.4:
@@ -4419,11 +4453,12 @@ packages:
     resolution: {integrity: sha512-PdHt7hHUJKxvTCgbKX9C1V/ftOcjJQgz8BZwNfV5c4B6dcGqlpelTbJ999jBGZ2jYiPAwcX5dP6oBwVlBlUbxw==}
     optional: true
 
-  /sucrase/3.31.0:
-    resolution: {integrity: sha512-6QsHnkqyVEzYcaiHsOKkzOtOgdJcb8i54x6AV2hDwyZcY9ZyykGZVw6L/YN98xC0evwTP6utsWWrKRaa8QlfEQ==}
+  /sucrase/3.32.0:
+    resolution: {integrity: sha512-ydQOU34rpSyj2TGyz4D2p8rbktIOZ8QY9s+DGLvFU1i5pWJE8vkpruCjGCMHsdXwnD7JDcS+noSwM/a7zyNFDQ==}
     engines: {node: '>=8'}
     hasBin: true
     dependencies:
+      '@jridgewell/gen-mapping': 0.3.3
       commander: 4.1.1
       glob: 7.1.6
       lines-and-columns: 1.2.4
@@ -4584,7 +4619,7 @@ packages:
   /tslib/2.5.0:
     resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
 
-  /tsup/6.7.0_typescript@5.0.3:
+  /tsup/6.7.0_typescript@5.0.4:
     resolution: {integrity: sha512-L3o8hGkaHnu5TdJns+mCqFsDBo83bJ44rlK7e6VdanIvpea4ArPcU3swWGsLVbXak1PqQx/V+SSmFPujBK+zEQ==}
     engines: {node: '>=14.18'}
     hasBin: true
@@ -4612,9 +4647,9 @@ packages:
       resolve-from: 5.0.0
       rollup: 3.20.2
       source-map: 0.8.0-beta.0
-      sucrase: 3.31.0
+      sucrase: 3.32.0
       tree-kill: 1.2.2
-      typescript: 5.0.3
+      typescript: 5.0.4
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -4677,8 +4712,8 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /typescript/5.0.3:
-    resolution: {integrity: sha512-xv8mOEDnigb/tN9PSMTwSEqAnUvkoXMQlicOb0IUVDBSQCgBSaAAROUZYy2IcUy5qU6XajK5jjjO7TMWqBTKZA==}
+  /typescript/5.0.4:
+    resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
     engines: {node: '>=12.20'}
     hasBin: true
     dev: true
