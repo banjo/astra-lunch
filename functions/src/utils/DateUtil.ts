@@ -34,4 +34,8 @@ const getWeekdayEnglish = (date = new Date()): EnglishWeekday => {
     return Weekday.fromEnglish(weekday);
 };
 
+export const isWeekend = (date = new Date()): boolean => {
+    const weekday = getWeekdayEnglish(date);
+    return weekday === "saturday" || weekday === "sunday";
+};
 export const DateUtil = { format, getPreviousMondayDate, getWeekNumber, getWeekdaySwedish, getWeekdayEnglish };

@@ -1,9 +1,9 @@
 import { includes } from "@banjoanton/utils";
 
-export const swedishWeekdays = ["måndag", "tisdag", "onsdag", "torsdag", "fredag"] as const;
+export const swedishWeekdays = ["måndag", "tisdag", "onsdag", "torsdag", "fredag", "lördag", "söndag"] as const;
 export type SwedishWeekday = (typeof swedishWeekdays)[number];
 
-export const englishWeekdays = ["monday", "tuesday", "wednesday", "thursday", "friday"] as const;
+export const englishWeekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] as const;
 export type EnglishWeekday = (typeof englishWeekdays)[number];
 
 const fromSwedish = (day: string): SwedishWeekday => {
