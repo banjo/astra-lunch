@@ -13,6 +13,7 @@ export type WeeklyFood = {
     weekNumber: number;
     name: Restaurant;
     successfullyFetched: boolean;
+    year: number;
     id: string;
 };
 
@@ -23,11 +24,14 @@ const from = (fetched: PartialFood, name: Restaurant): WeeklyFood => {
         wednesday: fetched.wednesday ?? null,
         thursday: fetched.thursday ?? null,
         friday: fetched.friday ?? null,
+        saturday: fetched.saturday ?? null,
+        sunday: fetched.sunday ?? null,
     };
 
     const dateMonday = DateUtil.getPreviousMondayDate();
     const weekNumber = DateUtil.getWeekNumber(dateMonday);
     const haveFailed = Object.values(food).every(v => v === null);
+    const currentYear = new Date().getFullYear();
 
     return {
         food,
@@ -35,6 +39,7 @@ const from = (fetched: PartialFood, name: Restaurant): WeeklyFood => {
         weekNumber,
         name,
         successfullyFetched: !haveFailed,
+        year: currentYear,
         id: generateId(),
     };
 };
@@ -42,6 +47,7 @@ const from = (fetched: PartialFood, name: Restaurant): WeeklyFood => {
 const fail = (name: Restaurant): WeeklyFood => {
     const dateMonday = DateUtil.getPreviousMondayDate();
     const weekNumber = DateUtil.getWeekNumber(dateMonday);
+    const currentYear = new Date().getFullYear();
 
     return {
         food: {
@@ -50,11 +56,14 @@ const fail = (name: Restaurant): WeeklyFood => {
             wednesday: null,
             thursday: null,
             friday: null,
+            saturday: null,
+            sunday: null,
         },
         dateMonday: DateUtil.format(dateMonday),
         weekNumber,
         name,
         successfullyFetched: false,
+        year: currentYear,
         id: generateId(),
     };
 };

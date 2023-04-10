@@ -7,11 +7,45 @@ initializeApp();
 
 const database = getFirestore();
 
-const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<void> => {
+const isSame = (first: WeeklyFood, second: WeeklyFood) => {
+    return JSON.stringify(first) === JSON.stringify(second);
+};
+
+const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean> => {
+    let weekPreviousFetch;
+    let yearPreviousFetch;
+    if (weeklyFood.weekNumber === 1) {
+        weekPreviousFetch = 52;
+        yearPreviousFetch = weeklyFood.year - 1;
+    } else {
+        weekPreviousFetch = weeklyFood.weekNumber - 1;
+        yearPreviousFetch = weeklyFood.year;
+    }
+
+    const queryPreviousFetch = await database
+        .collection("food")
+        .where("weekNumber", "==", weekPreviousFetch)
+        .where("name", "==", weeklyFood.name)
+        .where("year", "==", yearPreviousFetch)
+        .get();
+
+    const dataPreviousFetch = queryPreviousFetch.docs.map<WeeklyFood>(document_ => document_.data() as WeeklyFood);
+
+    if (dataPreviousFetch.length === 1) {
+        const previousData = dataPreviousFetch[0];
+        if (isSame(weeklyFood, previousData)) {
+            functions.logger.log("Food is same as last week, has not been updated yet.");
+            return false;
+        }
+    }
+
+    const currentYear = new Date().getFullYear();
+
     const query = await database
         .collection("food")
         .where("weekNumber", "==", weeklyFood.weekNumber)
         .where("name", "==", weeklyFood.name)
+        .where("year", "==", currentYear)
         .get();
 
     const data = query.docs.map<WeeklyFood>(document_ => document_.data() as WeeklyFood);
@@ -21,15 +55,16 @@ const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<void> =>
         const object = data[0];
         if (object.successfullyFetched) {
             functions.logger.debug(`Not updating ${weeklyFood.name} for week ${weeklyFood.weekNumber}`);
-            return;
+            return true;
         }
 
         functions.logger.debug(`Updating ${weeklyFood.name} for week ${weeklyFood.weekNumber}`);
         await database.collection("food").doc(object.id).delete();
-        return;
+        return true;
     }
 
     await database.collection("food").add(weeklyFood);
+    return true;
 };
 
 const getWeeklyDatesByWeekNumber = async (weekNumber: number): Promise<WeeklyFood[]> => {
