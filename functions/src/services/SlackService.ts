@@ -1,4 +1,5 @@
 import { capitalize } from "@banjoanton/utils";
+import * as functions from "firebase-functions";
 import SlackNotify from "slack-notify";
 import { Restaurant } from "../models/Restaurant";
 import { DateUtil } from "../utils/DateUtil";
@@ -60,6 +61,13 @@ const sendDailyLunch = async () => {
             food,
         };
     });
+
+    if (foodForToday.every(daily => !daily.food)) {
+        functions.logger.log("No food found for today");
+        const todaySwedish = DateUtil.getWeekdaySwedish();
+        await sendToSlack(`Ingen mat hittades för ${capitalize(todaySwedish)} 😟`);
+        return;
+    }
 
     const text = formatForSlack(foodForToday);
     await sendToSlack(text);
