@@ -1,4 +1,4 @@
-import * as functions from "firebase-functions";
+import { Logger } from "../logger";
 import { type Restaurant } from "../models/Restaurant";
 
 export type Result = {
@@ -9,11 +9,11 @@ export type Result = {
 
 const handleResult = (result: PromiseSettledResult<any>, name: Restaurant): Result => {
     if (result.status === "fulfilled") {
-        functions.logger.info("Result", result.value);
+        Logger.log(`Success with promise for ${name}`);
         return { name, value: result.value, success: true };
     }
 
-    functions.logger.error("Error", result.reason);
+    Logger.log(`Error with promise for ${name}`);
     return { name, value: result.reason, success: false };
 };
 

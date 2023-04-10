@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import * as functions from "firebase-functions";
+import { Logger } from "../logger";
 import { WeeklyFood } from "../models/WeeklyFood";
 
 initializeApp();
@@ -8,7 +8,7 @@ initializeApp();
 const database = getFirestore();
 
 const isSame = (first: WeeklyFood, second: WeeklyFood) => {
-    return JSON.stringify(first) === JSON.stringify(second);
+    return first.food.monday?.[0] === second.food.monday?.[0];
 };
 
 const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean> => {
@@ -34,7 +34,7 @@ const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean>
     if (dataPreviousFetch.length === 1) {
         const previousData = dataPreviousFetch[0];
         if (isSame(weeklyFood, previousData)) {
-            functions.logger.log("Food is same as last week, has not been updated yet.");
+            Logger.log("Food is same as last week, has not been updated yet.");
             return false;
         }
     }
@@ -51,14 +51,14 @@ const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean>
     const data = query.docs.map<WeeklyFood>(document_ => document_.data() as WeeklyFood);
 
     if (data.length === 1) {
-        functions.logger.debug(`Already fetched ${weeklyFood.name} for week ${weeklyFood.weekNumber}`);
+        Logger.log(`Already fetched ${weeklyFood.name} for week ${weeklyFood.weekNumber}`);
         const object = data[0];
         if (object.successfullyFetched) {
-            functions.logger.debug(`Not updating ${weeklyFood.name} for week ${weeklyFood.weekNumber}`);
+            Logger.log(`Not updating ${weeklyFood.name} for week ${weeklyFood.weekNumber}`);
             return true;
         }
 
-        functions.logger.debug(`Updating ${weeklyFood.name} for week ${weeklyFood.weekNumber}`);
+        Logger.log(`Updating ${weeklyFood.name} for week ${weeklyFood.weekNumber}`);
         await database.collection("food").doc(object.id).delete();
         return true;
     }
