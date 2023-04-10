@@ -1,9 +1,9 @@
 import { sample } from "@banjoanton/utils";
 
 const emojiMapper = {
+    "🐟": ["fisk", "torsk", "fångst", "havets", "havs", "lax", "makrill", "sej", "kolja"],
     "🍔": ["hamburgare", "burgare", "hamburger", "cheeseburgare", "cheeseburger"],
     "🍖": ["kött", "fläskkarré", "schnitzel", "fläsk", "wallenbergare", "biff"],
-    "🐟": ["fisk", "torsk", "fångst", "havets", "havs", "lax", "makrill", "sej"],
     "🍗": ["kyckling", "höna", "wings"],
     "🍕": ["pizza", "margherita", "pepperoni", "vesuvio"],
     "🍟": ["pommes", "pommes frites"],
