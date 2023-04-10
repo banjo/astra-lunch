@@ -46,7 +46,7 @@ export const fetchKockOchRock = async () => {
 
         const today = `${header} ${new Date().getFullYear()}`;
 
-        const todayEnglish = DateUtil.getWeekdayAsString(new Date(today), "en-US");
+        const todayEnglish = DateUtil.getWeekdayEnglish(new Date(today));
 
         const hasClosedText = foodNames.some(food => food.toLowerCase().includes("stängt"));
         const tooFewEntries = foodNames.length <= 1;
