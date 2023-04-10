@@ -53,6 +53,7 @@ const sendDailyLunch = async () => {
     const weeklyFoods = await DatabaseService.getWeeklyDatesByWeekNumber(currentWeekNumber);
 
     const weekdayEnglish = DateUtil.getWeekdayEnglish();
+    Logger.log(`Sending daily lunch for ${weekdayEnglish} (${currentWeekNumber})`);
 
     const foodForToday: DailyFood = weeklyFoods.map(weekly => {
         const food: string[] | null = weekly.food[weekdayEnglish];
@@ -69,8 +70,12 @@ const sendDailyLunch = async () => {
         return;
     }
 
+    Logger.log("Sending to slack");
+
     const text = formatForSlack(foodForToday);
     await sendToSlack(text);
+
+    Logger.log("Sent to slack");
 };
 
 export const SlackService = {

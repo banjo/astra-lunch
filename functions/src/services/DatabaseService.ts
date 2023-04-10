@@ -15,9 +15,11 @@ const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean>
     let weekPreviousFetch;
     let yearPreviousFetch;
     if (weeklyFood.weekNumber === 1) {
+        Logger.log(`Week is 1, fetching last week of previous year for ${weeklyFood.name}`);
         weekPreviousFetch = 52;
         yearPreviousFetch = weeklyFood.year - 1;
     } else {
+        Logger.log(`Fetching previous week for ${weeklyFood.name}`);
         weekPreviousFetch = weeklyFood.weekNumber - 1;
         yearPreviousFetch = weeklyFood.year;
     }
@@ -32,11 +34,14 @@ const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean>
     const dataPreviousFetch = queryPreviousFetch.docs.map<WeeklyFood>(document_ => document_.data() as WeeklyFood);
 
     if (dataPreviousFetch.length === 1) {
+        Logger.log(`Found previous fetch for ${weeklyFood.name}`);
         const previousData = dataPreviousFetch[0];
         if (isSame(weeklyFood, previousData)) {
-            Logger.log("Food is same as last week, has not been updated yet.");
+            Logger.log(`Food is same as last week for ${weeklyFood.name}, has not been updated yet.`);
             return false;
         }
+
+        Logger.log("Food is different from last week, updating");
     }
 
     const currentYear = new Date().getFullYear();
@@ -63,6 +68,7 @@ const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean>
         return true;
     }
 
+    Logger.log(`Adding ${weeklyFood.name} for week ${weeklyFood.weekNumber} to database`);
     await database.collection("food").add(weeklyFood);
     return true;
 };
