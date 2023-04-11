@@ -77,3 +77,4 @@ lib
 dist
 functions/key.json
 functions/old-key.json
+functions/test.ts

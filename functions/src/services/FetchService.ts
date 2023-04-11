@@ -1,6 +1,6 @@
 import { Logger } from "../logger";
 import { WeeklyFood } from "../models/WeeklyFood";
-import { fetchKockOchRock, fetchSodexo, fetchTaste } from "../parser";
+import { fetchKockOchRock, fetchSodexo, fetchTaste } from "../parser/index";
 import { PromiseUtil, Result } from "../utils/PromiseUtil";
 import { DatabaseService } from "./DatabaseService";
 
@@ -29,14 +29,20 @@ const mapAndSave = async (result: Result): Promise<boolean> => {
 
 const fetchLunches = async () => {
     Logger.log("Fetching lunches");
-    const promises = [fetchTaste(), fetchKockOchRock(), fetchSodexo()];
-    const [taste, kockOchRock, sodexo] = await Promise.allSettled(promises);
 
-    const tasteResult = await mapAndSave(PromiseUtil.handleResult(taste, "taste"));
-    const kockResult = await mapAndSave(PromiseUtil.handleResult(kockOchRock, "kockochrock"));
-    const sodexoResult = await mapAndSave(PromiseUtil.handleResult(sodexo, "sodexo"));
+    try {
+        const promises = [fetchTaste(), fetchKockOchRock(), fetchSodexo()];
+        const [taste, kockOchRock, sodexo] = await Promise.allSettled(promises);
 
-    return tasteResult && kockResult && sodexoResult;
+        const tasteResult = await mapAndSave(PromiseUtil.handleResult(taste, "taste"));
+        const kockResult = await mapAndSave(PromiseUtil.handleResult(kockOchRock, "kockochrock"));
+        const sodexoResult = await mapAndSave(PromiseUtil.handleResult(sodexo, "sodexo"));
+
+        return tasteResult && kockResult && sodexoResult;
+    } catch (error) {
+        Logger.log(error);
+        return false;
+    }
 };
 
 export const FetchService = { fetchLunches };
