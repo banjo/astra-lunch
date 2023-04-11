@@ -2,6 +2,7 @@ import { sample } from "@banjoanton/utils";
 
 const emojiMapper = {
     "🐟": ["fisk", "torsk", "fångst", "havets", "havs", "lax", "makrill", "sej", "kolja"],
+    "🦀": ["räka", "hummer", "krabba", "kräfta", "kräftor", "kräftstjärtar", "skaldjur"],
     "🍔": ["hamburgare", "burgare", "hamburger", "cheeseburgare", "cheeseburger"],
     "🍖": ["kött", "fläskkarré", "schnitzel", "fläsk", "wallenbergare", "biff"],
     "🍗": ["kyckling", "höna", "wings"],
@@ -9,7 +10,7 @@ const emojiMapper = {
     "🍟": ["pommes", "pommes frites"],
     "🥓": ["bacon", "fläsk"],
     "🍤": ["räkor", "räkcocktail", "räka"],
-    "🌭": ["korv"],
+    "🌭": ["korv", "salsiccia", "hot dog", "frankfurter"],
     "🌮": ["taco", "burrito"],
     "🍲": ["soppa", "soppsbuffe", "soppsbuffé"],
     "🍝": ["pasta", "spaghetti", "lasagne", "fettuccine", "linguine"],
