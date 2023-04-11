@@ -5,6 +5,7 @@ import { JSDOM } from "jsdom";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
+import { Logger } from "../../logger.js";
 import { isLocalDevelopment } from "../../utils.js";
 import { parser } from "./parser.js";
 const fetchWithCookies = fetchCookie(fetch);
@@ -35,6 +36,8 @@ export const fetchSodexo = async () => {
         throw new Error("Failed to login");
     }
 
+    Logger.log(`Login status: ${login.status}`);
+
     const lunchResponse = await fetchWithCookies(URL, {
         method: "GET",
     });
@@ -42,6 +45,8 @@ export const fetchSodexo = async () => {
     if (lunchResponse.status !== 200) {
         throw new Error("Failed to fetch lunch");
     }
+
+    Logger.log(`Lunch status: ${lunchResponse.status}`);
 
     const html = await lunchResponse.text();
     const dom = new JSDOM(html);
@@ -58,6 +63,8 @@ export const fetchSodexo = async () => {
     const image = userImages[0];
     const fullUrl = `https://workz.sodexo.se${image.src}`;
 
+    Logger.log(`Downloading image: ${fullUrl}`);
+
     const downloadResponse = await fetchWithCookies(fullUrl, {
         method: "GET",
     });
@@ -65,6 +72,8 @@ export const fetchSodexo = async () => {
     if (downloadResponse.status !== 200) {
         throw new Error("Failed to download image");
     }
+
+    Logger.log(`Download status: ${downloadResponse.status}`);
 
     const buffer = Buffer.from(await downloadResponse.arrayBuffer());
 
@@ -83,6 +92,8 @@ export const fetchSodexo = async () => {
         keyPath = temporaryFilePath;
     }
 
+    Logger.log("Using Google Vision API");
+
     const client = new vision.ImageAnnotatorClient({
         keyFile: keyPath,
     });
@@ -94,6 +105,8 @@ export const fetchSodexo = async () => {
     if (!text) {
         throw new Error("No text found in sodexo image");
     }
+
+    Logger.log("Parsing text");
 
     return parser(text);
 };

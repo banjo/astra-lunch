@@ -17,7 +17,31 @@ const removePatterns = text => {
     return newText;
 };
 
+const getIncludedDays = (text: string) => {
+    const swedishDays = LanguageUtil.swedishWeekdays;
+
+    const days: string[] = [];
+
+    for (const day of swedishDays) {
+        for (const line of text.split("\n")) {
+            const regex = new RegExp(`^(${day.trim()})\\s*$`, "i");
+
+            if (regex.test(line)) {
+                days.push(day);
+            }
+        }
+    }
+
+    return days;
+};
+
 export const parser = (text: string) => {
+    const includedDays = getIncludedDays(text);
+
+    if (includedDays.length === 0) {
+        throw new Error("No days found");
+    }
+
     const lines = text.split("\n");
 
     let continueParsing = false;
@@ -53,9 +77,17 @@ export const parser = (text: string) => {
     }
 
     const final = {};
-    for (const [index, day] of LanguageUtil.swedishWeekdays.entries()) {
+    let lunchEntry = 0;
+    for (const day of LanguageUtil.swedishWeekdays) {
         const englishDay = LanguageUtil.translateDayToEnglish(day);
-        final[englishDay] = allFood[index];
+
+        if (!includedDays.includes(day)) {
+            final[englishDay] = null;
+            continue;
+        }
+
+        final[englishDay] = allFood[lunchEntry];
+        lunchEntry++;
     }
 
     return final;
