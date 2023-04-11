@@ -47,7 +47,9 @@ export const fetchSodexo = async () => {
     const dom = new JSDOM(html);
 
     const images = dom.window.document.querySelectorAll("img");
-    const userImages = [...images].filter(image => image.src.includes("userfile") && !image.src.includes("mat"));
+    const userImages = [...images].filter(
+        image => image.src.includes("userfile") && !image.src.includes("mat")
+    );
 
     if (userImages.length === 0) {
         throw new Error("No images found");

@@ -42,7 +42,9 @@ export const fetchKockOchRock = async () => {
         }
 
         const foodElements = [...child.nextElementSibling.querySelectorAll(".td_title")];
-        const foodNames = foodElements.map(f => f?.textContent?.trim()).filter(v => isDefined(v)) as string[];
+        const foodNames = foodElements
+            .map(f => f?.textContent?.trim())
+            .filter(v => isDefined(v)) as string[];
 
         const today = `${header} ${new Date().getFullYear()}`;
 

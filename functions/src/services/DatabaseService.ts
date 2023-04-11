@@ -31,13 +31,17 @@ const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean>
         .where("year", "==", yearPreviousFetch)
         .get();
 
-    const dataPreviousFetch = queryPreviousFetch.docs.map<WeeklyFood>(document_ => document_.data() as WeeklyFood);
+    const dataPreviousFetch = queryPreviousFetch.docs.map<WeeklyFood>(
+        document_ => document_.data() as WeeklyFood
+    );
 
     if (dataPreviousFetch.length === 1) {
         Logger.log(`Found previous fetch for ${weeklyFood.name}`);
         const previousData = dataPreviousFetch[0];
         if (isSame(weeklyFood, previousData)) {
-            Logger.log(`Food is same as last week for ${weeklyFood.name}, has not been updated yet.`);
+            Logger.log(
+                `Food is same as last week for ${weeklyFood.name}, has not been updated yet.`
+            );
             return false;
         }
 

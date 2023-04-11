@@ -20,7 +20,7 @@ importers:
 
   functions:
     specifiers:
-      '@banjoanton/prettier-config': ^0.0.8
+      '@banjoanton/prettier-config': ^0.1.2
       '@banjoanton/utils': ^0.1.43
       '@google-cloud/vision': ^3.1.2
       '@types/jsdom': ^21.1.1
@@ -46,7 +46,7 @@ importers:
       jsdom: 21.1.1
       slack-notify: 2.0.6
     devDependencies:
-      '@banjoanton/prettier-config': 0.0.8
+      '@banjoanton/prettier-config': 0.1.2
       '@banjoanton/utils': 0.1.43
       '@types/jsdom': 21.1.1
       firebase-functions-test: 3.0.0_y34tr7wrdqipvoepcurrpj6dei
@@ -134,18 +134,18 @@ packages:
       - supports-color
     dev: true
 
-  /@banjoanton/prettier-config/0.0.8:
-    resolution: {integrity: sha512-cKPKUsF79hhvgtZh8pEldM3pkIltaP/CRcv60fFvuAfEeWLQV2f5sIFLYY6Z5FIjpMp3T6SuGZ1yOGqMsRtZjQ==}
-    peerDependencies:
-      prettier: ^2.2.1
-    dev: true
-
   /@banjoanton/prettier-config/0.0.8_prettier@2.8.7:
     resolution: {integrity: sha512-cKPKUsF79hhvgtZh8pEldM3pkIltaP/CRcv60fFvuAfEeWLQV2f5sIFLYY6Z5FIjpMp3T6SuGZ1yOGqMsRtZjQ==}
     peerDependencies:
       prettier: ^2.2.1
     dependencies:
       prettier: 2.8.7
+    dev: true
+
+  /@banjoanton/prettier-config/0.1.2:
+    resolution: {integrity: sha512-3TN6mKtlumTj3+Ka5kb+YFaBQbA5n+c+vQvnhTMOhlH4qTMerPfDdd9TFoPHjwgFqmFeIwI4s3OrNWIB+Khxcg==}
+    peerDependencies:
+      prettier: ^2.2.1
     dev: true
 
   /@banjoanton/prettier-config/0.1.2_prettier@2.8.7:

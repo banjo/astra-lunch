@@ -12,5 +12,5 @@ export const slack = functions
     .region("europe-west1")
     .https.onRequest(async (request: functions.Request, response: functions.Response) => {
         await sendToSlack();
-        response.send("ok");
+        response.send(process.env);
     });
