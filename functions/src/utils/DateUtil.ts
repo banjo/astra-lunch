@@ -10,7 +10,7 @@ const getPreviousMondayDate = () => {
     return getFirstDayOfWeek(new Date());
 };
 
-const getWeekNumber = (date: Date): number => {
+const getWeekNumber = (date = new Date()): number => {
     return currentWeekNumber(date);
 };
 

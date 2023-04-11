@@ -4,7 +4,8 @@ import { fetchKockOchRock, fetchSodexo, fetchTaste } from "../parser";
 import { PromiseUtil, Result } from "../utils/PromiseUtil";
 import { DatabaseService } from "./DatabaseService";
 
-const mapAndSave = async (result: Result): Promise<void> => {
+const mapAndSave = async (result: Result): Promise<boolean> => {
+    let success = true;
     let mapped;
     if (result.success) {
         Logger.log(`Success with promise for ${result.name}`);
@@ -12,9 +13,18 @@ const mapAndSave = async (result: Result): Promise<void> => {
     } else {
         Logger.log(`Failed to fetch ${result.name}`);
         mapped = WeeklyFood.fail(result.name);
+        success = false;
     }
 
-    await DatabaseService.addWeeklyFoodToDatabase(mapped);
+    const databaseResult = await DatabaseService.addWeeklyFoodToDatabase(mapped);
+
+    if (!databaseResult || !success) {
+        Logger.log(`Something went wrong with ${result.name}`);
+        return false;
+    }
+
+    Logger.log(`Successfully fetched ${result.name}`);
+    return true;
 };
 
 const fetchLunches = async () => {
@@ -22,9 +32,11 @@ const fetchLunches = async () => {
     const promises = [fetchTaste(), fetchKockOchRock(), fetchSodexo()];
     const [taste, kockOchRock, sodexo] = await Promise.allSettled(promises);
 
-    await mapAndSave(PromiseUtil.handleResult(taste, "taste"));
-    await mapAndSave(PromiseUtil.handleResult(kockOchRock, "kockochrock"));
-    await mapAndSave(PromiseUtil.handleResult(sodexo, "sodexo"));
+    const tasteResult = await mapAndSave(PromiseUtil.handleResult(taste, "taste"));
+    const kockResult = await mapAndSave(PromiseUtil.handleResult(kockOchRock, "kockochrock"));
+    const sodexoResult = await mapAndSave(PromiseUtil.handleResult(sodexo, "sodexo"));
+
+    return tasteResult && kockResult && sodexoResult;
 };
 
 export const FetchService = { fetchLunches };

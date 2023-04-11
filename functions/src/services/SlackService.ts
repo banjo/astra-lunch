@@ -51,12 +51,12 @@ const sendToSlack = async (text: string) => {
 
 const sendDailyLunch = async () => {
     const currentWeekNumber = DateUtil.getWeekNumber(new Date());
-    const weeklyFoods = await DatabaseService.getWeeklyDatesByWeekNumber(currentWeekNumber);
+    const weeklyFood = await DatabaseService.getWeeklyFoodByWeekNumber(currentWeekNumber);
 
     const weekdayEnglish = DateUtil.getWeekdayEnglish();
     Logger.log(`Sending daily lunch for ${weekdayEnglish} (${currentWeekNumber})`);
 
-    const foodForToday: DailyFood = weeklyFoods.map(weekly => {
+    const foodForToday: DailyFood = weeklyFood.map(weekly => {
         const food: string[] | null = weekly.food[weekdayEnglish];
         return {
             name: weekly.name,

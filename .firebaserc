@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "astra-lunch"
-  }
+    "default": "astra-lunch",
+    "prod": "astra-lunch"
+  },
+  "targets": {},
+  "etags": {}
 }
