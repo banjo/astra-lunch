@@ -19,7 +19,7 @@ const formatForSlack = (foodForToday: DailyFood): string => {
         text += `*${Restaurant.toString(restaurant)}*\n`;
 
         if (!dailyMenu?.food) {
-            text += "😟\t_Stängt_\n\n";
+            text += "😟\t_Stängt (eller problem...)_\n\n";
             continue;
         }
 
