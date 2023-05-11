@@ -1,5 +1,6 @@
 import { isDefined } from "@banjoanton/utils";
 import { JSDOM } from "jsdom";
+import { Month } from "../../models/Month";
 import { DateUtil } from "../../utils/DateUtil";
 
 const url = "https://kockochrock.se/veckans-lunch"; // todo: remove 1
@@ -27,7 +28,11 @@ export const fetchKockOchRock = async () => {
     const allFood: Record<string, string[] | null> = {};
 
     for (const child of children) {
-        if (!child.className.includes("header")) {
+        if (
+            !child.className.includes("header") ||
+            child.textContent?.trim().toLowerCase() === "vardagsmeny" ||
+            child.textContent?.trim().toLowerCase() === "serveras hela veckan"
+        ) {
             continue;
         }
 
@@ -46,7 +51,10 @@ export const fetchKockOchRock = async () => {
             .map(f => f?.textContent?.trim())
             .filter(v => isDefined(v)) as string[];
 
-        const today = `${header} ${new Date().getFullYear()}`;
+        const [_, day, month] = header.split(" ");
+        const englishMonth = Month.swedishToEnglish(month);
+
+        const today = `${day} ${englishMonth}, ${new Date().getFullYear()}`;
 
         const todayEnglish = DateUtil.getWeekdayEnglish(new Date(today));
 
@@ -66,7 +74,16 @@ export const fetchKockOchRock = async () => {
 
 function isValidDate(string_) {
     const d = new Date(string_);
-    return !Number.isNaN(d.getTime());
+    const isDate = !Number.isNaN(d.getTime());
+
+    if (isDate) return true;
+
+    const [_, day, month] = string_.split(" ");
+    const englishMonth = Month.swedishToEnglish(month);
+
+    const date = new Date(`${englishMonth} ${day}, ${new Date().getFullYear()}`);
+
+    return !Number.isNaN(date.getTime());
 }
 
 function getMosluckanMenu(menu) {

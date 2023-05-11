@@ -8,7 +8,10 @@ initializeApp();
 const database = getFirestore();
 
 const isSame = (first: WeeklyFood, second: WeeklyFood) => {
-    return first.food.monday?.[0] === second.food.monday?.[0];
+    return (
+        first.food.monday?.[0] === second.food.monday?.[0] &&
+        first.food.friday?.[0] === second.food.friday?.[0]
+    );
 };
 
 const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean> => {
