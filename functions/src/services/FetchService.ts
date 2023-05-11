@@ -3,6 +3,7 @@ import { WeeklyFood } from "../models/WeeklyFood";
 import { fetchKockOchRock, fetchSodexo, fetchTaste } from "../parser/index";
 import { PromiseUtil, Result } from "../utils/PromiseUtil";
 import { DatabaseService } from "./DatabaseService";
+import { MailService } from "./MailService";
 
 const mapAndSave = async (result: Result): Promise<boolean> => {
     let success = true;
@@ -40,7 +41,10 @@ const fetchLunches = async () => {
 
         return tasteResult && kockResult && sodexoResult;
     } catch (error) {
-        Logger.log(error);
+        const stringifiedError = JSON.stringify(error, null, 2);
+        Logger.log(stringifiedError);
+        await MailService.send("Failed to fetch lunches", stringifiedError);
+
         return false;
     }
 };

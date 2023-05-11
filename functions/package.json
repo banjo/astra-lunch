@@ -18,6 +18,7 @@
     "main": "lib/index.js",
     "dependencies": {
         "@google-cloud/vision": "^3.1.2",
+        "@sendgrid/mail": "^7.7.0",
         "current-week-number": "^1.0.7",
         "dotenv": "^16.0.3",
         "fetch-cookie": "^2.1.0",
