@@ -51,7 +51,7 @@ export const fetchKockOchRock = async () => {
             .map(f => f?.textContent?.trim())
             .filter(v => isDefined(v)) as string[];
 
-        const [_, day, month] = header.split(" ");
+        const [_, day, month] = header.replace("  ", " ").split(" ");
         const englishMonth = Month.swedishToEnglish(month);
 
         const today = `${day} ${englishMonth}, ${new Date().getFullYear()}`;
