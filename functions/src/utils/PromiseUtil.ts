@@ -13,7 +13,7 @@ const handleResult = (result: PromiseSettledResult<any>, name: Restaurant): Resu
         return { name, value: result.value, success: true };
     }
 
-    Logger.log(`Error with promise for ${name}`);
+    Logger.log(`Error with promise for ${name}: ${result.reason}`);
     return { name, value: result.reason, success: false };
 };
 

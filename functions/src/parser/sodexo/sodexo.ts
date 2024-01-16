@@ -28,7 +28,12 @@ export const fetchSodexo = async () => {
         method: "POST",
     });
 
-    if (login.status !== 200) {
+    const loginText = await login.text();
+
+    if (
+        login.status !== 200 ||
+        loginText.includes("Du angav ett felaktigt användarnamn eller lösenord.")
+    ) {
         throw new Error("Failed to login");
     }
 
