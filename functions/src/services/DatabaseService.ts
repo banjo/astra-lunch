@@ -80,6 +80,17 @@ const addWeeklyFoodToDatabase = async (weeklyFood: WeeklyFood): Promise<boolean>
     return true;
 };
 
+const deleteWeeklyFoodByWeekNumber = async (weekNumber: number): Promise<void> => {
+    const query = await database.collection("food").where("weekNumber", "==", weekNumber).get();
+    const data = query.docs.map(document_ => document_.data());
+
+    Logger.log(`Clearing weekly food by week number data: ${data}`);
+
+    for (const document of query.docs) {
+        await database.collection("food").doc(document.id).delete();
+    }
+};
+
 const getWeeklyFoodByWeekNumber = async (weekNumber: number): Promise<WeeklyFood[]> => {
     const query = await database.collection("food").where("weekNumber", "==", weekNumber).get();
     return query.docs.map<WeeklyFood>(document_ => document_.data() as WeeklyFood);
@@ -104,4 +115,5 @@ export const DatabaseService = {
     getWeeklyFoodByWeekNumber,
     hasSentLunchForWeek,
     setSentLunchForWeek,
+    deleteWeeklyFoodByWeekNumber,
 };

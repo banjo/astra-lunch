@@ -4,7 +4,7 @@ import { FetchService } from "./services/FetchService";
 import { SlackService } from "./services/SlackService";
 import { DateUtil } from "./utils/DateUtil";
 
-const fetchLunch = async () => {
+const fetchLunch = async (skipSlack = false) => {
     const success = await FetchService.fetchLunches();
 
     Logger.log(`Success to fetch lunches: ${success}`);
@@ -19,7 +19,7 @@ const fetchLunch = async () => {
 
     Logger.log(`Has sent lunch for week ${weekNumber}: ${sent}`);
 
-    if (!sent) {
+    if (!sent && !skipSlack) {
         await DatabaseService.setSentLunchForWeek(weekNumber);
         await SlackService.sendDailyLunch();
     }

@@ -4,7 +4,7 @@
         "build": "rimraf lib && tsup",
         "watch": "tsup --watch",
         "start": "pnpm run shell",
-        "serve": "npm-run-all --parallel watch serve:functions",
+        "dev": "npm-run-all --parallel watch serve:functions",
         "shell": "npm-run-all --parallel watch shell:functions",
         "serve:functions": "firebase emulators:start --only functions",
         "shell:functions": "firebase functions:shell",
