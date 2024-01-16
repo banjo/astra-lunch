@@ -97,7 +97,12 @@ const getWeeklyFoodByWeekNumber = async (weekNumber: number): Promise<WeeklyFood
 };
 
 const hasSentLunchForWeek = async (weekNumber: number): Promise<boolean> => {
-    const query = await database.collection("sent").where("weekNumber", "==", weekNumber).get();
+    const currentYear = new Date().getFullYear();
+    const query = await database
+        .collection("sent")
+        .where("weekNumber", "==", weekNumber)
+        .where("year", "==", currentYear)
+        .get();
 
     const data = query.docs.map(document_ => document_.data());
 
@@ -107,7 +112,8 @@ const hasSentLunchForWeek = async (weekNumber: number): Promise<boolean> => {
 };
 
 const setSentLunchForWeek = async (weekNumber: number): Promise<void> => {
-    await database.collection("sent").add({ weekNumber });
+    const currentYear = new Date().getFullYear();
+    await database.collection("sent").add({ weekNumber, year: currentYear });
 };
 
 export const DatabaseService = {
