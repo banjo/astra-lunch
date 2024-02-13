@@ -15,9 +15,10 @@ export type WeeklyFood = {
     successfullyFetched: boolean;
     year: number;
     id: string;
+    url: string;
 };
 
-const from = (fetched: PartialFood, name: Restaurant): WeeklyFood => {
+const from = (fetched: PartialFood, name: Restaurant, url: string): WeeklyFood => {
     const food: Food = {
         monday: fetched.monday ?? null,
         tuesday: fetched.tuesday ?? null,
@@ -41,6 +42,7 @@ const from = (fetched: PartialFood, name: Restaurant): WeeklyFood => {
         successfullyFetched: !haveFailed,
         year: currentYear,
         id: generateId(),
+        url,
     };
 };
 
@@ -65,6 +67,7 @@ const fail = (name: Restaurant): WeeklyFood => {
         successfullyFetched: false,
         year: currentYear,
         id: generateId(),
+        url: "",
     };
 };
 

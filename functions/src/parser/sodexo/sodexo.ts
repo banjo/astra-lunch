@@ -4,6 +4,7 @@ import fetchCookie from "fetch-cookie";
 import { JSDOM } from "jsdom";
 import { Logger } from "../../logger.js";
 import { parser } from "./parser.js";
+import { Parsed } from "../../models/Parsed.js";
 const fetchWithCookies = fetchCookie(fetch);
 
 const URL = "https://workz.sodexo.se/info/restaurang-goteborg/";
@@ -93,6 +94,5 @@ export const fetchSodexo = async () => {
     }
 
     Logger.log("Parsing text");
-
-    return parser(text);
+    return Parsed.from(parser(text), fullUrl);
 };

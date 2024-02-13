@@ -9,14 +9,21 @@ import { EmojiService } from "./EmojiService";
 type DailyFood = {
     name: Restaurant;
     food: string[] | null;
+    url: string;
 }[];
 
-const formatForSlack = (foodForToday: DailyFood): string => {
+const formatForSlack = (foodForToday: DailyFood, currentWeekNumber: number): string => {
     const weekdaySwedish = DateUtil.getWeekdaySwedish();
-    let text = `--- *Dagens lunch ${capitalize(weekdaySwedish)}* ---\n\n`;
+    let text = `--- *Dagens lunch ${capitalize(
+        weekdaySwedish
+    )} vecka ${currentWeekNumber}* ---\n\n`;
+
     for (const restaurant of RESTAURANTS) {
         const dailyMenu = foodForToday.find(daily => daily.name === restaurant);
-        text += `*${Restaurant.toString(restaurant)}*\n`;
+
+        const urlText = dailyMenu?.url ? ` (<${dailyMenu.url}|veckomeny>)` : "";
+
+        text += `*${Restaurant.toString(restaurant)}* ${urlText ?? ""}\n`;
 
         if (!dailyMenu?.food) {
             text += "😟\t_Stängt (eller problem...)_\n\n";
@@ -61,6 +68,7 @@ const sendDailyLunch = async () => {
         return {
             name: weekly.name,
             food,
+            url: weekly.url,
         };
     });
 
@@ -70,7 +78,7 @@ const sendDailyLunch = async () => {
 
     Logger.log("Sending to slack");
 
-    const text = formatForSlack(foodForToday);
+    const text = formatForSlack(foodForToday, currentWeekNumber);
     await sendToSlack(text);
 
     Logger.log("Sent to slack");

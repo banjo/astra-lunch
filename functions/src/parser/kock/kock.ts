@@ -2,6 +2,7 @@ import { isDefined } from "@banjoanton/utils";
 import { JSDOM } from "jsdom";
 import { Month } from "../../models/Month";
 import { DateUtil } from "../../utils/DateUtil";
+import { Parsed } from "../../models/Parsed";
 
 const url = "https://kockochrock.se/veckans-lunch"; // todo: remove 1
 
@@ -69,7 +70,7 @@ export const fetchKockOchRock = async () => {
         allFood[todayEnglish] = [...foodNames, ...mosluckan];
     }
 
-    return allFood;
+    return Parsed.from(allFood, url);
 };
 
 function isValidDate(string_) {

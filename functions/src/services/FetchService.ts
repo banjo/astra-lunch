@@ -10,7 +10,7 @@ const mapAndSave = async (result: Result): Promise<boolean> => {
     let mapped;
     if (result.success) {
         Logger.log(`Success with promise for ${result.name}`);
-        mapped = WeeklyFood.from(result.value, result.name);
+        mapped = WeeklyFood.from(result.value, result.name, result.url);
     } else {
         Logger.log(`Failed to fetch ${result.name}`);
         mapped = WeeklyFood.fail(result.name);

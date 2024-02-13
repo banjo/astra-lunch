@@ -1,12 +1,10 @@
 import { JSDOM } from "jsdom";
 import { parser } from "./parser.js";
+import { Parsed } from "../../models/Parsed.js";
 
 const url = "https://www.santamariaworld.com/se/om-santa-maria/tastebysantamaria/";
 
-export const fetchTaste = async () => {
-    // const t = await fs.readFile("taste", "utf8");
-    // return parser(t);
-
+export const fetchTaste = async (): Promise<Parsed> => {
     const response = await fetch(url, {
         method: "GET",
     });
@@ -27,5 +25,5 @@ export const fetchTaste = async () => {
         throw new Error("No text found for Taste");
     }
 
-    return parser(text);
+    return Parsed.from(parser(text), url);
 };
