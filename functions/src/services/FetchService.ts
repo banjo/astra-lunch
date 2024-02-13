@@ -7,7 +7,7 @@ import { MailService } from "./MailService";
 
 const mapAndSave = async (result: Result): Promise<boolean> => {
     let success = true;
-    let mapped;
+    let mapped: WeeklyFood;
     if (result.success) {
         Logger.log(`Success with promise for ${result.name}`);
         mapped = WeeklyFood.from(result.value, result.name, result.url);

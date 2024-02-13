@@ -1,9 +1,11 @@
+import { RawParsingData } from "./RawParsingData";
+
 export type Parsed = {
-    value: any;
+    value: RawParsingData;
     url: string;
 };
 
-const from = (value: any, url: string): Parsed => {
+const from = (value: RawParsingData, url: string): Parsed => {
     return {
         value,
         url,

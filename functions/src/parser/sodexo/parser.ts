@@ -1,3 +1,4 @@
+import { RawParsingData } from "../../models/RawParsingData";
 import { LanguageUtil } from "../../utils/LanguageUtil";
 
 const dec = /(\d{1,2}\.\d{1,2})/g;
@@ -35,7 +36,7 @@ const getIncludedDays = (text: string) => {
     return days;
 };
 
-export const parser = (text: string) => {
+export const parser = (text: string): RawParsingData => {
     const includedDays = getIncludedDays(text);
 
     if (includedDays.length === 0) {
@@ -76,7 +77,7 @@ export const parser = (text: string) => {
         foodForDay.push(newText.trim());
     }
 
-    const final = {};
+    const final = RawParsingData.empty();
     let lunchEntry = 0;
     for (const day of LanguageUtil.swedishWeekdays) {
         const englishDay = LanguageUtil.translateDayToEnglish(day);

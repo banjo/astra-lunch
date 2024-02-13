@@ -3,10 +3,11 @@ import { JSDOM } from "jsdom";
 import { Month } from "../../models/Month";
 import { DateUtil } from "../../utils/DateUtil";
 import { Parsed } from "../../models/Parsed";
+import { RawParsingData } from "../../models/RawParsingData";
 
-const url = "https://kockochrock.se/veckans-lunch"; // todo: remove 1
+const url = "https://kockochrock.se/veckans-lunch";
 
-export const fetchKockOchRock = async () => {
+export const fetchKockOchRock = async (): Promise<Parsed> => {
     const response = await fetch(url, {
         method: "GET",
     });
@@ -26,7 +27,7 @@ export const fetchKockOchRock = async () => {
     }
 
     const children = [...menu.children];
-    const allFood: Record<string, string[] | null> = {};
+    const allFood = RawParsingData.empty();
 
     for (const child of children) {
         if (
@@ -52,7 +53,7 @@ export const fetchKockOchRock = async () => {
             .map(f => f?.textContent?.trim())
             .filter(v => isDefined(v)) as string[];
 
-        const [_, day, month] = header.replace("  ", " ").split(" ");
+        const [, day, month] = header.replace("  ", " ").split(" ");
         const englishMonth = Month.swedishToEnglish(month);
 
         const today = `${day} ${englishMonth}, ${new Date().getFullYear()}`;
@@ -79,7 +80,7 @@ function isValidDate(string_) {
 
     if (isDate) return true;
 
-    const [_, day, month] = string_.split(" ");
+    const [, day, month] = string_.split(" ");
     const englishMonth = Month.swedishToEnglish(month);
 
     const date = new Date(`${englishMonth} ${day}, ${new Date().getFullYear()}`);

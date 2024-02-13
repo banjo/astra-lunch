@@ -5,12 +5,13 @@ import { JSDOM } from "jsdom";
 import { Logger } from "../../logger.js";
 import { parser } from "./parser.js";
 import { Parsed } from "../../models/Parsed.js";
+
 const fetchWithCookies = fetchCookie(fetch);
 
 const URL = "https://workz.sodexo.se/info/restaurang-goteborg/";
 const KEY_FILE = "key.json";
 
-export const fetchSodexo = async () => {
+export const fetchSodexo = async (): Promise<Parsed> => {
     const email = process.env.SODEXO_EMAIL ?? null;
     const password = process.env.SODEXO_PASSWORD ?? null;
     const homeSite = 15;

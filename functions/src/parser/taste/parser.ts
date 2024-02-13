@@ -1,3 +1,4 @@
+import { RawParsingData } from "../../models/RawParsingData";
 import { LanguageUtil } from "../../utils/LanguageUtil";
 
 const soupOfTheWeekText = "Veckans soppa";
@@ -6,11 +7,11 @@ const mainPrefixes = ["Santa Maria:", "Husman:", "Santa maria:", "husman:", "san
 const vegPrefix = "Veg:";
 const closed = ["Stängt"];
 
-export const parser = (text: string) => {
+export const parser = (text: string): RawParsingData => {
     const lines = text.split("\n");
 
     let soupOfTheWeek = "";
-    let allFood = {};
+    let allFood = RawParsingData.empty();
     let index = -1;
     for (const line of lines) {
         index++;
