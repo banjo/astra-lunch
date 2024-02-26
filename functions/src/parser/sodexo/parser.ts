@@ -1,15 +1,11 @@
 import { RawParsingData } from "../../models/RawParsingData";
 import { LanguageUtil } from "../../utils/LanguageUtil";
 
-const dec = /(\d{1,2}\.\d{1,2})/g;
-const double = /(\d{2})/g;
-const words = /ascom|acom|agte/gi;
-const dot = /(\d{1,2}\.)/g;
-const something = /(\d{1,2}:\d{1,2})/g;
+const patternsToRemove = [
+    /.*C([0Oo])₂e/g, // Remove everything before and including CO2e
+];
 
-const patternsToRemove = [dec, double, words, dot, something];
-
-const removePatterns = text => {
+const removePatterns = (text: string) => {
     let newText = text;
     for (const pattern of patternsToRemove) {
         newText = newText.replace(pattern, "");
