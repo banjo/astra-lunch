@@ -1,10 +1,8 @@
-import { formatDate, getFirstDayOfWeek } from "@banjoanton/utils";
+import { getFirstDayOfWeek, toIsoDateString } from "@banjoanton/utils";
 import currentWeekNumber from "current-week-number";
 import { EnglishWeekday, SwedishWeekday, Weekday } from "../models/Weekday";
 
-const format = (date: Date): string => {
-    return formatDate(date);
-};
+const format = (date: Date): string => toIsoDateString(date);
 
 const getPreviousMondayDate = () => {
     return getFirstDayOfWeek(new Date());
