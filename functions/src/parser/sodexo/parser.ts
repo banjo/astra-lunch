@@ -45,7 +45,7 @@ export const parser = (text: string): RawParsingData => {
     const allFood: string[][] = [];
     let foodForDay: string[] = [];
     for (const line of lines) {
-        if (line.startsWith("Vecka")) {
+        if (line.toLowerCase().includes("vecka")) {
             continueParsing = true;
             continue;
         }

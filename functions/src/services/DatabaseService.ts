@@ -106,8 +106,6 @@ const hasSentLunchForWeek = async (weekNumber: number): Promise<boolean> => {
 
     const data = query.docs.map(document_ => document_.data());
 
-    Logger.log(`Has sent lunch for week data: ${data}`);
-
     return data.length > 0;
 };
 
