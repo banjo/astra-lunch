@@ -44,7 +44,9 @@ export const parser = (text: string): RawParsingData => {
     let continueParsing = false;
     const allFood: string[][] = [];
     let foodForDay: string[] = [];
-    for (const line of lines) {
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+
         if (line.toLowerCase().includes("vecka")) {
             continueParsing = true;
             continue;
@@ -64,7 +66,17 @@ export const parser = (text: string): RawParsingData => {
             break;
         }
 
-        const newText = removePatterns(line);
+        let newText = removePatterns(line);
+
+        /**
+         * If the line preceding this one ends with the CO2 value,
+         * we assume it's due to the text being split over multiple lines.
+         * Grab the next line and append it to the current one.
+         */
+        if (/₂[eе]$/.test(lines[i - 1])) {
+            newText = `${line} ${lines[i + 1]}`;
+            i++;
+        }
 
         if (newText.trim().length < 15) {
             continue;
