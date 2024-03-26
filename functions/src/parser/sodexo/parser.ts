@@ -73,7 +73,7 @@ export const parser = (text: string): RawParsingData => {
          * we assume it's due to the text being split over multiple lines.
          * Grab the next line and append it to the current one.
          */
-        if (lines[i - 1].endsWith("₂е")) {
+        if (/₂[eе]$/.test(lines[i - 1])) {
             newText = `${line} ${lines[i + 1]}`;
             i++;
         }
