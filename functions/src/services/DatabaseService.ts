@@ -92,7 +92,13 @@ const deleteWeeklyFoodByWeekNumber = async (weekNumber: number): Promise<void> =
 };
 
 const getWeeklyFoodByWeekNumber = async (weekNumber: number): Promise<WeeklyFood[]> => {
-    const query = await database.collection("food").where("weekNumber", "==", weekNumber).get();
+    const currentYear = new Date().getFullYear();
+    const query = await database
+        .collection("food")
+        .where("weekNumber", "==", weekNumber)
+        .where("year", "==", currentYear)
+        .get();
+
     return query.docs.map<WeeklyFood>(document_ => document_.data() as WeeklyFood);
 };
 
