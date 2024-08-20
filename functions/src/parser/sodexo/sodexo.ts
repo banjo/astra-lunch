@@ -86,7 +86,14 @@ export const fetchSodexo = async (): Promise<Parsed> => {
         keyFile: KEY_FILE,
     });
 
-    const [result] = await client.textDetection(buffer);
+    const [result] = await client.textDetection({
+        image: {
+            content: buffer,
+        },
+        imageContext: {
+            languageHints: ["sv"],
+        },
+    });
 
     const text = result.textAnnotations?.[0].description;
 
